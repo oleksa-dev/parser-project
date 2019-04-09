@@ -1,0 +1,41 @@
+{
+  "name": "team_t",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-mongo-dev": "docker run --rm -i -p 27017:27017 -v $PWD/data:/data/db --name parser_mongo mongo:3.4 --bind_ip=0.0.0.0",
+    "build-docker": "docker build -t parser_work_ua .",
+    "docker-run-dev": "docker run --rm -i --link parser_mongo:parser_mongo -p 4000:4000 --name work_ua parser_work_ua",
+    "start": "MONGO_HOST=localhost ./node_modules/.bin/nodemon index.js",
+    "start-parser": "MONGO_HOST=localhost node $PWD/parser/mainParser.js",
+    "start-mongo-prod": "docker run --rm -d -p 27017:27017 -h localhost -v $PWD/data:/data/db --name parser_mongo mongo:3.4 --bind_ip=0.0.0.0",
+    "docker-run-prod": "docker run --rm -d --link parser_mongo:parser_mongo -p 4000:4000 --name work_ua parser_work_ua",
+    "start-prod": "npm run start-mongo-prod; npm run docker-run-prod",
+    "docker-stop:mongo": "docker stop parser_mongo;",
+    "docker-stop:parser": "docker stop work_ua;",
+    "docker-stop": "npm run docker-stop:parser; npm run docker-stop:mongo;"
+  },
+  "author": "team-t",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "3.5.3",
+    "cheerio": "1.0.0-rc.2",
+    "config": "3.0.1",
+    "dayjs": "1.8.0",
+    "koa": "2.6.2",
+    "koa-ejs": "4.1.2",
+    "koa-mount": "4.0.0",
+    "koa-router": "7.4.0",
+    "koa-static": "5.0.0",
+    "mongoose": "5.4.0",
+    "path": "0.12.7",
+    "request": "^2.88.0",
+    "request-promise": "4.2.2"
+  },
+  "devDependencies": {
+    "chai-http": "^3.0.0",
+    "nodemon": "^1.18.9"
+  }
+}

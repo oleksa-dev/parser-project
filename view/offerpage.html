@@ -1,0 +1,124 @@
+<!-- Breadcrumbs -->
+<div class="row d-flex justify-content-center">
+    <div class="col-lg-10 col-md-10 col-sm-10 col-10 p-0">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-light">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Offers</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!-- Outputs search results message -->
+<div class="row d-flex justify-content-center">
+    <div class="col-lg-10 col-md-10 col-sm-10 col-10 p-0">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%=searchResult%>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Offer`s section -->
+<div class="row d-flex justify-content-center mt-4">
+        <div class="col-lg-10 col-md-10 col-sm-10 p-0">
+            <% _.forEach(offers, (value) => {%>
+            <div class="card mb-5">
+                <div class="card-header">
+                    <div class="row d-flex justify-content-between">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-6 ">
+                            <form action="/offerpage" method="get">
+                            <button name="city" class="btn btn-link" value="<%= value.city %>" type="submit"><%= value.city %></button>
+                            </form>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-6 text-right">
+                            <span class="badge badge-primary"><%- value.postDate.toDateString(); %></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body text-center">
+                    <form action="/offerpage" method="get">
+                        <button name="companyName" class="btn btn-link " value="<%= value.companyName %>" type="submit">
+                            <h5 class="card-title"><%= value.companyName %></h5>
+                        </button>
+                    </form>
+                    <p class="card-text"><%= value.jobTitle %></p>
+                    <h3 class="card-text text-secondary pb-3"><%- value.salary.value %> <%- value.salary.unit %></h3>
+                    <a href="/offerpage/<%= value.id %>" class="btn btn-primary text-center">Show details</a>
+                </div>
+            </div>
+            <% })%>
+        </div>
+    </div>
+
+<!-- Pagination section -->
+<div class="row d-flex justify-content-center">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <% if (page - 1 >= 1) { %>
+            <li class="page-item">
+                    <a class="page-link" href="/offerpage?page=<%= 1 %>&city=<%=query.city%>&jobTitle=<%=query.jobTitle%>&company=<%=query.companyName%>&sortOptions=<%=query.sortOptions%>"
+                       tabindex="-1"
+                       aria-disabled="true">First page</a>
+                </li>
+            <li class="page-item">
+                    <a class="page-link" href="/offerpage?page=<%= (page - 1) %>&city=<%=query.city%>&jobTitle=<%=query.jobTitle%>&company=<%=query.companyName%>&sortOptions=<%=query.sortOptions%>"
+                       tabindex="-1"
+                       aria-disabled="true"><<</a>
+                </li>
+            <li class="page-item">
+                    <a class="page-link" href="/offerpage?page=<%= (page - 1) %>&city=<%=query.city%>&jobTitle=<%=query.jobTitle%>&company=<%=query.companyName%>&sortOptions=<%=query.sortOptions%>"
+                       tabindex="-1"
+                       aria-disabled="true"><%- (page - 1)%></a>
+                </li>
+            <% } if (page + 1 <= pageCount) { %>
+            <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#"><%- page%><span class="sr-only">(current)</span></a>
+                </li>
+            <li class="page-item">
+                    <a class="page-link" href="/offerpage?page=<%= (page + 1) %>&city=<%=query.city%>&jobTitle=<%=query.jobTitle%>&company=<%=query.companyName%>&sortOptions=<%=query.sortOptions%>"
+                       tabindex="+1"
+                       aria-disabled="true"><%- (page + 1)%></a>
+                </li>
+            <li class="page-item">
+                <a class="page-link" href="/offerpage?page=<%= (page + 1) %>&city=<%=query.city%>&jobTitle=<%=query.jobTitle%>&company=<%=query.companyName%>&sortOptions=<%=query.sortOptions%>"
+                       tabindex="+1"
+                       aria-disabled="true">>></a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="/offerpage?page=<%= pageCount %>&city=<%=query.city%>&jobTitle=<%=query.jobTitle%>&company=<%=query.companyName%>&sortOptions=<%=query.sortOptions%>">Last page</a>
+            </li>
+            <% } else if (page  === pageCount) { %>
+            <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#"><%- page%><span class="sr-only">(current)</span></a>
+                </li>
+            <% } %>
+        </ul>
+    </nav>
+</div>
+
+<!-- Go to page number -->
+<div class="row d-flex justify-content-center">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+        <form  action="/offerpage" method="get">
+            <div class="form-row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                    <button type="submit" class="btn btn-primary btn-block">Go to page</button>
+                </div>
+                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-6">
+                    <input
+                            name="page"
+                            type="number"
+                            class="form-control"
+                            max="<%=pageCount%>"
+                            min="1"
+                            value="<%= //query.page %>"
+                            placeholder="number">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

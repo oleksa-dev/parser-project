@@ -1,0 +1,68 @@
+<!--Breadcrumbs-->
+<div class="row d-flex justify-content-center">
+    <div class="col-lg-10 col-md-10 col-sm-10 col-10 p-0">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-light">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/offerpage">Offers</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Offer details</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!--Job offer card-->
+<div class="row d-flex justify-content-center">
+    <div class="col-lg-10 col-md-10 col-sm-10 col-10 pt-3 pb-3 mt-3 mb-3 border">
+        <div class="row p-2">
+            <!--Offer's name and date of publishing-->
+            <div class="col-lg-7 col-md-7 p-4">
+                <span class="h4 m-0"> <%- selectedOffer.jobTitle %></span><br>
+                <span class="text-secondary">Published:
+                    <span class="badge badge-primary"><%- selectedOffer.postDate.toDateString(); %></span>
+                    <p class="h3 text-secondary pt-4"><%- selectedOffer.salary.value %> <%- selectedOffer.salary.unit %></p>
+                </span>
+            </div>
+            <!--Company logo-->
+            <div class="col-lg-5 col-md-5 p-4">
+                <div class="align-items-center">
+                    <% if (!selectedOffer.companyLogo) { %>
+                    <img src="https://st.work.ua/i/decoration/push17spring/main/man_1.png"
+                         alt="Here should be a logo of the company...">
+                    <h5><span class="h3 badge badge-warning">
+                        Here could be<br>company's logo :)
+                    </span></h5>
+                    <% } else { %>
+                    <img src="<%- selectedOffer.companyLogo %>"
+                         class="mx-auto d-block"
+                         alt="Логотип компанії: <%- selectedOffer.companyName %>" style="">
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        <!--Company and city-->
+        <div class="row p-4">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-3 p-2"><span class="text-secondary">Company name:</span></div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-9 p-2"><span class="h6 text-primary"><%- selectedOffer.companyName %></span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-3 p-2"><span class="text-secondary">City:</span></div>
+            <div class="col-lg-9 col-md-3 col-sm-9 col-9 p-2"><span class="h6 text-dark"><%- selectedOffer.city %></span></div>
+        </div>
+
+        <!--Offer description-->
+        <div class="row p-4">
+            <p class="text-dark p-2"><%- selectedOffer.description %></p>
+        </div>
+
+        <!--Button-->
+        <div class="row p-4">
+            <div class="col-lg-2 col-md-3 col-sm-12 p-2">
+                <a href="https://www.work.ua/jobseeker/my/resumes/send/?id=<%- selectedOffer.id %>"
+                   class="btn btn-primary btn-block p-2"
+                   target="_blank">
+                    Send resume
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

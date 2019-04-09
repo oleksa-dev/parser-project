@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" class="min-vh-100 ">
+<head>
+    <meta charset="UTF-8">
+    <title><%- title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+
+        .item-height {
+            height: 100vh;
+        }
+
+        .centering {
+            height: 100%;
+        }
+    </style>
+    <link rel="stylesheet" href="/public/bootstrap.min.css">
+</head>
+	<body class="" style="height: 100vh;">
+		<div class="h-100 d-flex flex-column">
+			<!-- Header section -->
+			<nav class="navbar fixed-top navbar-expand-md navbar-dark bg-primary">
+				<a class="navbar-brand" href="/">T-team</a>
+				<button class="navbar-toggler"
+					type="button" data-toggle="collapse"
+					data-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent"
+					aria-expanded="false"
+					aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item active">
+							<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/offerpage">Offers</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+			<!-- Content section -->
+			<div class="container min-vh-100 flex-shrink-1 flex-grow-1">
+				<!--Searching form-->
+				<div class="row d-flex justify-content-center mt-5">
+					<div class="col-lg-10 col-md-10 col-sm-10 m-5 p-0 border bg-light">
+						<form action="/offerpage" method="get" class="m-2">
+							<div class="form-row p-2">
+								<!-- City request field -->
+								<div class="col-lg-2 col-md-6 col-sm-6 p-2">
+									<input
+										type="text"
+										name="city"
+										class="form-control"
+										value="<%= query.city %>"
+										placeholder="City"
+									/>
+								</div>
+
+								<!-- Vacancy request field -->
+								<div class="col-lg-3 col-md-6 col-sm-6 p-2">
+									<input
+										type="text"
+										name="jobTitle"
+										class="form-control"
+										value="<%= query.jobTitle %>"
+										placeholder="Vacancy"
+									/>
+								</div>
+
+								<!-- Company request field -->
+								<div class="col-lg-2 col-md-5 col-sm-6 p-2">
+									<input
+										type="text"
+										name="companyName"
+										class="form-control"
+										value="<%= query.companyName %>"
+										placeholder="Company"
+									/>
+								</div>
+
+
+								<!-- Sort by: -->
+								<div class="col-lg-3 col-md-5 col-sm-6 p-2">
+									<select name="sortOptions" id="inputSortByParams" class="form-control text-secondary">
+										<option value="" style="display: none;" <%= (!query.sortOptions) ? 'selected' : "" %> > Choose sorting </option>
+										<option value="ascSalary" <%= (query.sortOptions === "ascSalary") ? 'selected' : "" %> > From low to high </option>
+										<option value="descSalary" <%= (query.sortOptions === "descSalary") ? 'selected' : "" %> > From high to low </option>
+										<option value="ascDate" <%= (query.sortOptions === "ascDate") ? 'selected' : "" %> > The earliest date </option>
+										<option value="descDate" <%= (query.sortOptions === "descDate") ? "selected" : "" %> > The latest date </option>
+									</select>
+								</div>
+
+								<!-- Button -->
+								<div class="col-lg-2 col-md-2 col-sm-12 p-2">
+									<button type="submit" class="btn btn-primary btn-block">Search</button>
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+				<%- body %>
+			</div>
+
+			<!-- Footer section -->
+			<footer class="footer position-static mt-5 bg-secondary vw-100">
+			    <div class="container">
+				    <div class="row d-flex justify-content-center">
+					    <span class="text-white text-center">T-team &copy;</span>
+				    </div>
+			    </div>
+		    </footer>
+
+		</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="/public/bootstrap.min.js"></script>
+</body>
+</html>
